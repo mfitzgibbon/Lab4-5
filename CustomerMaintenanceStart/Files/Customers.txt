@@ -1,2 +1,2 @@
-John|Smith|johnsmith@gmail.com
-Jane|Doe|janedoe@yahoo.com
+steve|steveson|steve@mail.com
+sam|gamgee|hobbiton@mail.com
