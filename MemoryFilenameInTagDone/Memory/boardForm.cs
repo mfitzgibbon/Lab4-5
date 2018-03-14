@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CardClassLibrary;
 
 namespace Memory
 {
@@ -18,11 +19,13 @@ namespace Memory
         }
 
         #region Instance Variables
-        const int NOT_PICKED_YET = -1;
 
-        int firstCardNumber = NOT_PICKED_YET;
-        int secondCardNumber = NOT_PICKED_YET;
+        Card firstCard = new Card();
+        int firstCardIndex = -1;
+        Card secondCard = new Card();
+        int secondCardIndex = -1;
         int matches = 0;
+        Deck cardsInPlay = new Deck();
         #endregion
 
         #region Methods
@@ -30,7 +33,7 @@ namespace Memory
         // This method finds a picture box on the board based on it's number (1 - 20)
         // It takes an integer as it's parameter and returns the picture box controls
         // that's name contains that number
-        private PictureBox GetCard(int i)
+        private PictureBox GetCardUI(int i)
         {
             PictureBox card = (PictureBox)this.Controls["card" + i];
             return card;
@@ -41,7 +44,7 @@ namespace Memory
         // filename for the image in the corresponding picture box
         private string GetCardFilename(int i)
         {
-            return GetCard(i).Tag.ToString();
+            return GetCardUI(i).Tag.ToString();
         }
 
         // This method changes the filename for a given picture box
@@ -50,7 +53,7 @@ namespace Memory
         // in the picture box.  It doesn't actually display the new image
         private void SetCardFilename(int i, string filename)
         {
-            GetCard(i).Tag = filename;
+            GetCardUI(i).Tag = filename;
         }
 
         // These 2 methods get the value (and suit) of the card in a given picturebox
@@ -77,14 +80,15 @@ namespace Memory
         // This method fills each picture box with a filename
         private void FillCardFilenames()
         {
-            string[] values = { "a", "2", "j", "q", "k" };
-            string[] suits = { "c", "d", "h", "s" };
+            int[] values = { 1, 2, 11, 12, 13 };
+            int[] suits = { 1, 2, 3, 4 };
             int i = 1;
 
             for (int suit = 0; suit <= 3; suit++)
             {
                 for (int value = 0; value <= 4; value++)
                 {
+                    cardsInPlay.Add(new Card(suit, value));
                     SetCardFilename(i, "card" + values[value] + suits[suit] + ".jpg");
                     i++;
                 }
@@ -108,14 +112,14 @@ namespace Memory
         // have been filled in an earlier call to FillCardFilenames
         private void LoadCard(int i)
         {
-            PictureBox card = GetCard(i);
+            PictureBox card = GetCardUI(i);
             card.Image = Image.FromFile(System.Environment.CurrentDirectory + "\\Cards\\" + GetCardFilename(i));
         }
 
         // This method loads the image for the back of a card in a picture box
         private void LoadCardBack(int i)
         {
-            PictureBox card = GetCard(i);
+            PictureBox card = GetCardUI(i);
             card.Image = Image.FromFile(System.Environment.CurrentDirectory + "\\Cards\\black_back.jpg");
         }
 
@@ -133,7 +137,7 @@ namespace Memory
         // Hides a picture box
         private void HideCard(int i)
         {
-            PictureBox card = GetCard(i);
+            PictureBox card = GetCardUI(i);
             card.Visible = false;
         }
 
@@ -148,7 +152,7 @@ namespace Memory
         // shows a picture box
         private void ShowCard(int i)
         {
-            PictureBox card = GetCard(i);
+            PictureBox card = GetCardUI(i);
             card.Visible = true;
         }
 
@@ -163,7 +167,7 @@ namespace Memory
         // disables a picture box
         private void DisableCard(int i)
         {
-            PictureBox card = GetCard(i);
+            PictureBox card = GetCardUI(i);
             card.Enabled = false;
         }
 
@@ -177,7 +181,7 @@ namespace Memory
 
         private void EnableCard(int i)
         {
-            PictureBox card = GetCard(i);
+            PictureBox card = GetCardUI(i);
             card.Enabled = true;
         }
 
@@ -193,7 +197,7 @@ namespace Memory
         {
             for (int i = 1; i <= 20; i++)
             {
-                PictureBox card = GetCard(i);
+                PictureBox card = GetCardUI(i);
                 if (card.Visible)
                     card.Enabled = true;
             }
@@ -230,7 +234,7 @@ namespace Memory
              *      start the flip timer
              *  end if
             */
-            if (firstCardNumber == NOT_PICKED_YET)
+            if (firstCard.Suit == "null")
             {
                 firstCardNumber = cardNumber;
                 LoadCard(cardNumber);

@@ -10,6 +10,7 @@ namespace CardClassLibrary
     {
         private string suit;
         private int value;
+        private string fileName;
 
         private static string[] values = { "-1", "Ace", "2", "3", "4", "5", "6", "7", "8", "9", "Ten", "Jack", "Queen", "King" };
         private static string[] suits = { "null", "club", "diamond", "heart", "spade" };
@@ -42,6 +43,12 @@ namespace CardClassLibrary
         {
             get { return value; }
             set { this.value = value; }
+        }
+
+        public string FileName
+        {
+            get { return fileName; }
+            set { fileName = value; }
         }
 
         public string GetDisplayText(string sep)
