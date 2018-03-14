@@ -13,7 +13,12 @@ namespace CustomerMaintenanceClasses
         private string lastName;
         private string email;
 
-        public Customer() { }
+        public Customer()
+        {
+            this.firstName = "Unknown fName";
+            this.lastName = "Unknown lName";
+            this.email = "Unknown@email.com";
+        }
 
         public Customer(string firstName, string lastName, string email)
         {

@@ -1,2 +1,2 @@
-steve|steveson|steve@mail.com
-sam|gamgee|hobbiton@mail.com
+Steve|Munchkin|min@email.com
+David|Nathan|dnath@email.com
