@@ -4,16 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CardClassConsole
+namespace CardClassLibrary
 {
     public class Card
     {
-        private string suits[] = 
-        private int values[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 , 12}
         private string suit;
         private int value;
 
-        public Card() { }
+        private static string[] values = { "-1", "Ace", "2", "3", "4", "5", "6", "7", "8", "9", "Ten", "Jack", "Queen", "King" };
+        private static string[] suits = { "null", "club", "diamond", "heart", "spade" };
+
+        public Card()
+        {
+            this.suit = "null";
+            this.value = 0;
+        }
 
         public Card(string suit, int value)
         {
@@ -21,16 +26,34 @@ namespace CardClassConsole
             this.value = value;
         }
 
-        #region properties
-        public string Suit { get; set; }
+        public Card(int suit, int value)
+        {
+            this.suit = suits[suit];
+            this.value = value;
+        }
 
-        public int Value { get; set; }
-        #endregion
+        public string Suit
+        {
+            get { return suit; }
+            set { suit = value; }
+        }
+
+        public int Value
+        {
+            get { return value; }
+            set { this.value = value; }
+        }
+
+        public string GetDisplayText(string sep)
+        {
+            return suit + sep + value;
+        }
+
         #region methods
 
         public bool IsAce()
         {
-            if(this.value == 1)
+            if (this.value == 1)
             {
                 return true;
             }
@@ -39,7 +62,7 @@ namespace CardClassConsole
 
         public bool IsBlack()
         {
-            if(this.suit == "club" || this.suit == "spade")
+            if (this.suit == "club" || this.suit == "spade")
             {
                 return true;
             }
@@ -94,12 +117,12 @@ namespace CardClassConsole
                 return true;
             return false;
         }
-        override public string ToString()
+
+        public override string ToString()
         {
-            return this.suit + "|" + this.value.ToString();
+            return values[value] + " of " + suit;
         }
-#endregion
 
-
+        #endregion
     }
 }

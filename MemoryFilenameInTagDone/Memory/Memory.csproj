@@ -52,7 +52,6 @@
     <Compile Include="boardForm.Designer.cs">
       <DependentUpon>boardForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Card.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="boardForm.resx">
@@ -79,6 +78,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CardClassLibrary\CardClassLibrary.csproj">
+      <Project>{a0ba5371-4d3c-4dc0-8bfb-c2351679565b}</Project>
+      <Name>CardClassLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
